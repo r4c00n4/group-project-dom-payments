@@ -33,10 +33,10 @@
  *
  * Do not edit this code.
  */
-var account = {
+let account = {
   number: 100402153,
   initialBalance: 100,
-  paymentsUrl: '/data/payments.json',
+  paymentsUrl: "/data/payments.json",
   payments: []
 };
 
@@ -48,15 +48,11 @@ var account = {
  *
  * You may edit this code.
  */
-document.querySelector('#loadButton')
-  .addEventListener('click', function () {
-    fetch(account.paymentsUrl)
-      .then(response => response.json())
-      .then(payments => {
-        account.payments = payments;
-        render(account);
-      });
-  });
+document.querySelector("#loadButton").addEventListener("click", function() {
+  const payments = loadPayments();
+  account.payments = payments;
+  render(account);
+});
 
 /**
  * Write a render function below that updates the DOM with the
@@ -72,11 +68,9 @@ document.querySelector('#loadButton')
  * @param {Object} account The account details
  */
 function render(account) {
-
   // Display the account number
-  document.querySelector('#accountNumber')
-    .innerText = account.number;
-};
+  document.querySelector("#accountNumber").innerText = account.number;
+}
 
 /**
  * Write any additional functions that you need to complete
@@ -86,3 +80,86 @@ function render(account) {
  * calculate balances, find completed or pending payments,
  * add up payments, and more.
  */
+
+/**
+ * This is the function that loads the payments
+ *
+ * Do not edit this code.
+ */
+
+function loadPayments() {
+  return [
+    {
+      date: "2019-05-30",
+      description: "Lorem ipsum dolor sit amet",
+      amount: 29.23,
+      completed: true
+    },
+    {
+      date: "2019-05-26",
+      description: "Consectetur adipiscing elit, sed do eiusmod tempor",
+      amount: 19.72,
+      completed: true
+    },
+    {
+      date: "2019-05-22",
+      description: "Duis aute irure dolor in reprehenderit",
+      amount: 4.12,
+      completed: true
+    },
+    {
+      date: "2019-05-21",
+      description: "Quis nostrud exercitation ullamco laboris nisi",
+      amount: 94.21,
+      completed: false
+    },
+    {
+      date: "2019-05-15",
+      description: "Excepteur sint occaecat cupidatat non proident",
+      amount: 12.68,
+      completed: true
+    },
+    {
+      date: "2019-05-12",
+      description: "Sunt in culpa qui officia deserunt mollit anim",
+      amount: 87.93,
+      completed: true
+    },
+    {
+      date: "2019-05-04",
+      description: "Ut enim ad minim veniam, quis nostrud",
+      amount: 45.17,
+      completed: true
+    },
+    {
+      date: "2019-05-01",
+      description: "Sed do eiusmod tempor incididunt ut labore",
+      amount: 23.12,
+      completed: true
+    },
+    {
+      date: "2019-04-26",
+      description: "Exercitation ullamco laboris nisi ut",
+      amount: 102.21,
+      completed: true
+    },
+    {
+      date: "2019-04-22",
+      description: "Reprehenderit in voluptate velit esse cillum",
+      amount: 9.48,
+      completed: true
+    },
+    {
+      date: "2019-04-13",
+      description: "Tempor incididunt ut labore et dolore",
+      amount: 13.73,
+      completed: true
+    },
+    {
+      date: "2019-04-07",
+      description: "Commodo consequat duis aute irure dolor",
+      amount: 56.21,
+      completed: true
+    }
+  ];
+}
