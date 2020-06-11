@@ -36,7 +36,6 @@
 let account = {
   number: 100402153,
   initialBalance: 100,
-  paymentsUrl: "/data/payments.json",
   payments: []
 };
 
