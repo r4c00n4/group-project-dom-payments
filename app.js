@@ -38,6 +38,31 @@ let account = {
   initialBalance: 100,
   payments: []
 };
+function isItCompleted(payment) {
+  if (payment.completed) {
+    return true;
+  }
+  return false;
+}
+let currentbalance = document.getElementById("balanceAmount");
+currentbalance.innerText = "£" + account.initialBalance;
+
+let allAccountPayments = loadPayments();
+let completedPayments = allAccountPayments.filter(isItCompleted);
+// console.log(completedPayments);
+let amounts = completedPayments.map(function(payments) {
+  return payments.amount;
+});
+console.log(amounts);
+
+let initialValue = 0;
+for (var i = 0; i < amounts.length; i++) {
+  initialValue = initialValue + amounts[i];
+  console.log(initialValue);
+}
+
+let addingInitialAndAllPaymentsTogether = initialValue + account.initialBalance;
+currentbalance.innerText = "£" + addingInitialAndAllPaymentsTogether;
 
 /**
  * The code below has been written for you. When the "Load"
