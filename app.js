@@ -49,20 +49,77 @@ currentbalance.innerText = "£" + account.initialBalance;
 
 let allAccountPayments = loadPayments();
 let completedPayments = allAccountPayments.filter(isItCompleted);
-// console.log(completedPayments);
+
 let amounts = completedPayments.map(function(payments) {
   return payments.amount;
 });
-console.log(amounts);
 
 let initialValue = 0;
 for (var i = 0; i < amounts.length; i++) {
   initialValue = initialValue + amounts[i];
-  console.log(initialValue);
 }
 
-let addingInitialAndAllPaymentsTogether = initialValue + account.initialBalance;
-currentbalance.innerText = "£" + addingInitialAndAllPaymentsTogether;
+let allPaymentsTogether = initialValue + account.initialBalance;
+currentbalance.innerText = "£" + allPaymentsTogether;
+
+function addRow(row) {
+  let tableRow = document.createElement("tr");
+
+  let dateTableData = document.createElement("td");
+  dateTableData.innerText = row.date;
+
+  let paymentsList = document.querySelector("#paymentsList");
+  paymentsList.appendChild(tableRow);
+  tableRow.appendChild(dateTableData);
+
+  let statusTableData = document.createElement("td");
+  if (row.completed === true) {
+    statusTableData.innerText = "Completed";
+  } else if (row.completed === false) {
+    tableRow.className = "pending";
+    statusTableData.innerText = "Pending";
+  }
+  tableRow.appendChild(statusTableData);
+
+  let descriptionTableData = document.createElement("td");
+  descriptionTableData.innerText = row.description;
+  tableRow.appendChild(descriptionTableData);
+
+  let amountTableData = document.createElement("td");
+  amountTableData.innerText = "£" + row.amount;
+  tableRow.appendChild(amountTableData);
+}
+
+for (var i = 0; i < allAccountPayments.length; i++) {
+  addRow(allAccountPayments[i]);
+}
+
+let allThePayments = allAccountPayments.map(function(payments) {
+  return payments.amount;
+});
+
+let totalBalance = 0;
+for (var i = 0; i < allThePayments.length; i++) {
+  totalBalance = totalBalance + allThePayments[i];
+}
+
+let totalAmount = account.initialBalance + totalBalance;
+balanceAfterPendingPaymentIsCompleted = document.querySelector(
+  "#pendingBalance"
+);
+balanceAfterPendingPaymentIsCompleted.innerText = "£" + totalAmount;
+
+// let balanceAfterPaymentIsCompleted=document.querySelector("#pendingBalance");
+// balanceAfterPaymentIsCompleted.innerText=
+
+/* for each item of array, call the the addrow 
+// let TableData=document.createElement("td");
+// TableData.innerText="";
+
+
+
+
+
 
 /**
  * The code below has been written for you. When the "Load"
