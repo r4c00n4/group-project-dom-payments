@@ -73,12 +73,7 @@ function addRow(row) {
   tableRow.appendChild(dateTableData);
 
   let statusTableData = document.createElement("td");
-  if (row.completed === true) {
-    statusTableData.innerText = "Completed";
-  } else if (row.completed === false) {
-    tableRow.className = "pending";
-    statusTableData.innerText = "Pending";
-  }
+
   tableRow.appendChild(statusTableData);
 
   let descriptionTableData = document.createElement("td");
@@ -88,7 +83,33 @@ function addRow(row) {
   let amountTableData = document.createElement("td");
   amountTableData.innerText = "£" + row.amount;
   tableRow.appendChild(amountTableData);
+
+  if (row.completed === true) {
+    statusTableData.innerText = "Completed";
+  } else if (row.completed === false) {
+    tableRow.className = "pending";
+    statusTableData.innerText = "Pending";
+
+    let actionTableData = document.createElement("td");
+    let button = document.createElement("button");
+    button.innerText = "Cancel";
+    tableRow.appendChild(actionTableData);
+    actionTableData.appendChild(button);
+  }
 }
+
+// function cancelPayment(){
+//   totalAmount
+// }
+// let removePending=document.getElementById("paymentsList"),
+//  theTable= removePending.getElementsByTagName("tr")[0],
+//  theTableData= theTable.getElementsByTagName("td")[0];
+
+// console.log(removePending);
+// console.log(theTable);
+// console.log(theTableData);
+
+// button.addEventListener("click",)
 
 for (var i = 0; i < allAccountPayments.length; i++) {
   addRow(allAccountPayments[i]);
@@ -104,22 +125,36 @@ for (var i = 0; i < allThePayments.length; i++) {
 }
 
 let totalAmount = account.initialBalance + totalBalance;
+console.log(totalAmount);
 balanceAfterPendingPaymentIsCompleted = document.querySelector(
   "#pendingBalance"
 );
 balanceAfterPendingPaymentIsCompleted.innerText = "£" + totalAmount;
 
-// let balanceAfterPaymentIsCompleted=document.querySelector("#pendingBalance");
-// balanceAfterPaymentIsCompleted.innerText=
+let paymentsInMayArray = allAccountPayments.slice(0, 8);
 
-/* for each item of array, call the the addrow 
-// let TableData=document.createElement("td");
-// TableData.innerText="";
+let mayAmounts = paymentsInMayArray.map(function(object) {
+  return object.amount;
+});
 
+let mayBalance = 0;
+for (var i = 0; i < mayAmounts.length; i++) {
+  mayBalance = mayBalance + mayAmounts[i];
+}
 
+let totalOfThisMonth = document.querySelector("#totalIncome");
+totalOfThisMonth.innerText = "£" + mayBalance;
 
-
-
+let completedPaymentsL = completedPayments.filter(function(payment) {
+  if (payment.date === "2019-05-12") {
+    return true;
+  }
+});
+let filteredPayment = completedPaymentsL.map(function(object) {
+  return object.amount;
+});
+let mostValuable = document.querySelector("#mostValuablePayment");
+mostValuable.innerText = "£" + filteredPayment;
 
 /**
  * The code below has been written for you. When the "Load"
