@@ -38,6 +38,7 @@ let account = {
   initialBalance: 100,
   payments: []
 };
+//
 function isItCompleted(payment) {
   if (payment.completed) {
     return true;
@@ -62,9 +63,9 @@ for (var i = 0; i < amounts.length; i++) {
 let allPaymentsTogether = initialValue + account.initialBalance;
 currentbalance.innerText = "£" + allPaymentsTogether;
 
-function addRow(row) {
+function addRow(row, index) {
   let tableRow = document.createElement("tr");
-
+  tableRow.setAttribute("id", "payment" + index);
   let dateTableData = document.createElement("td");
   dateTableData.innerText = row.date;
 
@@ -89,30 +90,28 @@ function addRow(row) {
   } else if (row.completed === false) {
     tableRow.className = "pending";
     statusTableData.innerText = "Pending";
-
+    let pendingAmount = row.amount;
     let actionTableData = document.createElement("td");
     let button = document.createElement("button");
     button.innerText = "Cancel";
+    button.setAttribute("id", index);
+    button.addEventListener("click", function() {
+      document.querySelector("#payment" + index).remove();
+      let balanceAfter = totalAmount - pendingAmount;
+      let num = balanceAfter.toFixed(1);
+      balanceAfterPendingPaymentIsCompleted = document.querySelector(
+        "#pendingBalance"
+      );
+      balanceAfterPendingPaymentIsCompleted.innerText = "£" + num;
+    });
+
     tableRow.appendChild(actionTableData);
     actionTableData.appendChild(button);
   }
 }
 
-// function cancelPayment(){
-//   totalAmount
-// }
-// let removePending=document.getElementById("paymentsList"),
-//  theTable= removePending.getElementsByTagName("tr")[0],
-//  theTableData= theTable.getElementsByTagName("td")[0];
-
-// console.log(removePending);
-// console.log(theTable);
-// console.log(theTableData);
-
-// button.addEventListener("click",)
-
 for (var i = 0; i < allAccountPayments.length; i++) {
-  addRow(allAccountPayments[i]);
+  addRow(allAccountPayments[i], i);
 }
 
 let allThePayments = allAccountPayments.map(function(payments) {
@@ -125,7 +124,6 @@ for (var i = 0; i < allThePayments.length; i++) {
 }
 
 let totalAmount = account.initialBalance + totalBalance;
-console.log(totalAmount);
 balanceAfterPendingPaymentIsCompleted = document.querySelector(
   "#pendingBalance"
 );
