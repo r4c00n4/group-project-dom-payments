@@ -103,6 +103,7 @@ function addRow(row, index) {
         "#pendingBalance"
       );
       balanceAfterPendingPaymentIsCompleted.innerText = "£" + num;
+      render(account);
     });
 
     tableRow.appendChild(actionTableData);
